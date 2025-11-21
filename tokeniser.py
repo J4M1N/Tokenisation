@@ -102,9 +102,9 @@ class Tokeniser:
 
         for _ in range(num_merges):
             pairs = set()
-        prev_char = word[0]
+            prev_char = word[0]
         for char in word[1:]:
-            pairs.add((prev_char, char))
+            pairs((prev_char, char))
             prev_char = char
         #return pairs
             pairs = Counter()
@@ -130,3 +130,19 @@ class Tokeniser:
             vocab = new_vocab
             final_vocab = {"".join(word): freq for word, freq in vocab.items()}
         return final_vocab
+    
+    def show_vocab(self):
+        self.vocab: set[str] = set()
+        return self.vocab
+    
+
+    def encode(self, word: str) -> list[str]:
+        encoded = []
+        for char in word:
+            if char.isalpha():
+                base = ord('A') if char.isupper() else ord('a')
+                encoded_char = chr((ord(char) - base + char) % 26 + base)
+                encoded.append(encoded_char)
+            else:
+                encoded.append(char)
+            return encoded
